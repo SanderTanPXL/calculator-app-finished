@@ -1,0 +1,26 @@
+name: Dependencies Example
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js and NPM
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Verify directory contents
+        run: ls -alhR
