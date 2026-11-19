@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Run unit tests
-        run: npm test
+        run: npm test -- --coverage
 
       - name: Bundle code into a zip
         run: zip -r build.zip . -x "*.git*"
@@ -33,3 +33,7 @@ jobs:
         with:
           name: calculator-app-build
           path: build.zip
+
+      - name: Better Test Reports Action
+        uses: mridang/action-test-reporter@v1.3.0
+      
