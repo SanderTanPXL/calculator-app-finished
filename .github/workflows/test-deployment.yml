@@ -17,4 +17,4 @@ jobs:
           docker rm calculator-test || true
 
       - name: Run latest container
-        run: docker run -d --name calculator-test -p 3000:5000 ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:latest
+        run: docker run -d --name calculator-test -p 3000:3000 ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:latest
