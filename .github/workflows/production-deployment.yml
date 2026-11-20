@@ -1,0 +1,21 @@
+name: Production Deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-to-production:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to AWS EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PROD_IP }}
+          username: ubuntu
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:latest
+            docker stop calculator-prod || true
+            docker rm calculator-prod || true
+            docker run -d --name calculator-prod -p 80:3000 ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:latest
